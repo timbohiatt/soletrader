@@ -1,0 +1,127 @@
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+
+.portfiolio {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+
+    text-align: center;
+    font-size: 12pt;
+}
+
+
+
+/* Wallet Table Formatting*/
+.wallet_tbl_cell{
+    /*Cell Sizing*/
+    border: 1px solid black;
+    vertical-align:middle;
+    padding: 5px;
+    width: 14.28571%;
+
+    /*Text Control*/
+    text-align: center;
+}
+
+/* Rates Table Formatting*/
+.rates_tbl_cell{
+    /*Cell Sizing*/
+    border: 1px solid black;
+    vertical-align:middle;
+    padding: 5px;
+    width: 10%;
+
+    /*Text Control*/
+    text-align: center;
+}
+
+
+
+
+
+/* Portfolio Value Formatting*/
+
+
+
+/* Gain Attribute  Formatting*/
+.att_gain_cls_neutral{
+    background-color: #000000;
+    color: #ffffff
+}
+
+.att_gain_cls_pos{
+    background-color: #095b06;
+    color: #ffffff
+}
+
+.att_gain_cls_neg{
+    background-color: #871b0d;
+    color: #ffffff
+}
+
+
+/*Custom Cell Changing Animation Keyframes */
+@keyframes pulse_neutral {
+  0% {
+    background-color: #000000;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
+
+@keyframes pulse_up {
+  0% {
+    background-color: #095b06;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
+
+
+@keyframes pulse_down {
+  0% {
+    background-color: #871b0d;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}

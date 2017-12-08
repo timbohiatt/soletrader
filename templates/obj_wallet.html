@@ -1,0 +1,12 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>Currency</td> <td>Balance</td> <td>Pending</td> <td>Available</td>
+	</tr>
+	{% for currency in wallet %}
+		<tr>
+		{% for item in currency %}
+			<td>{{item}}</td>
+		{% endfor %}
+	     </tr>
+	{% endfor %}
+</table>

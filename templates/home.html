@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <!-- ===    SCRIPTS   =============================================================================================================================================== -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='core.js') }}"></script>
+  <!-- ===    STYLES    =============================================================================================================================================== -->
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <!-- ================================================================================================================================================================ -->
+  <head>
+
+    <title id="cnt_title"></title>
+
+  </head>
+  <!-- ================================================================================================================================================================ -->
+  
+  <!-- ===    BODY      =============================================================================================================================================== -->
+  <body>
+
+    <div class="container">
+
+      <header>
+        <div id="cnt_portfolioBalance"></div>
+         
+         <h1 id="cnt_portfolioBalance_text">TRADER</h1>
+      </header>
+    
+     <!-- <nav>
+        <ul>
+          <li><a href="#">London</a></li>
+          <li><a href="#">Paris</a></li>
+          <li><a href="#">Tokyo</a></li>
+        </ul>
+      </nav> -->
+
+      <div class="portfiolio">
+
+        <table id="cnt_portfolioSummary" width="100%" border="0" cellspacing="0" cellpadding="10">
+          <tr width="100%" border="0" cellspacing="0">
+            <td id="cnt_portfolioSummary_profit_title"><b>Profit/Loss (AUD)</b></td>
+          </tr>
+          <tr width="100%" border="0" cellspacing="0">
+            <td id="cnt_portfolioSummary_profit_value"><i>(Loading Data)</i></td>
+          </tr>
+          <tr width="100%" border="0" cellspacing="0">
+            <td id="cnt_portfolioSummary_percent_title"><b>Profit/Loss (%)</b></td>
+          </tr>
+          <tr width="100%" border="0" cellspacing="0">
+            <td id="cnt_portfolioSummary_percent_value"><i>(Loading Data)</i></td>
+          </tr>
+        </table>
+
+      </div>
+
+      <article>
+
+        <center><h2>Current Wallet Value</h2></center>
+        <table id="cnt_Wallets" width="100%" border="0" cellspacing="0" cellpadding="0">
+           <tr><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
+        </table>
+        <br></br>
+        <br></br>
+        <center><h2>Current Rates</h2></center>
+        <table id="cnt_Rates" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> 
+          <tr><th></th><th></th><th>% Change</th><th></th><th>% Change</th><th></th><th>% Change</th><th>% Change</th></tr> 
+        </table>
+        
+      </article>
+
+
+      <footer id="footer"></footer>
+
+    </div>
+
+  </body>
+<!-- ================================================================================================================================================================== -->
+
+<!-- ===    POST SCRIPTS    =========================================================================================================================================== -->  
+<script type="text/javascript">$(window).ready( function() {
+    //Set the timer based on the configuration item within the Python Backend.
+    var time = {{config.rfrshInt}}
+    setInterval( function() {
+        //Deduct one second from the timer. 
+        time--;
+        //Update the footer to show the time remaining until refresh.
+        $('#footer').html(time);
+        //When the timer is up. Call the Python Backend and get the refreshed API Data from BTC Markets.
+        if (time === 0) {
+            $.ajax({
+              //Request Route: dyn_data_update_wallets from python.
+              url: "/dyn_data_update",
+              type: "get",
+
+              //Successful Request
+              success: function(in_JSON) {
+
+                //Handle Portfolio Value
+                var portfolioBalance = ("$"+parseFloat(in_JSON.Account.Portfolio.balance).toFixed(2))
+                var portfolioValueProfitLoss = ("$"+parseFloat(in_JSON.Account.Portfolio.valueProfitLoss).toFixed(2))
+                var portfolioPercentageProfitLoss = (parseFloat(in_JSON.Account.Portfolio.percentProfitLoss).toFixed(2)+"%")
+                //Set the Page Title to the Portfolio Balance
+                $("#cnt_title").html(portfolioBalance);
+                //Set the Top Portfolio Label to the Portfolio Balance
+                $("#cnt_portfolioBalance_text").html(portfolioBalance);
+
+                //Set the Portfolio Profit Made Value and Color Class.
+                $("#cnt_portfolioSummary_profit_value").html(portfolioValueProfitLoss);
+                att_profit_numPosNeg(document.getElementById("cnt_portfolioSummary_profit_value"), portfolioValueProfitLoss)
+                $("#cnt_portfolioSummary_percent_value").html(portfolioPercentageProfitLoss);
+                att_profit_numPosNeg(document.getElementById("cnt_portfolioSummary_percent_value"), portfolioPercentageProfitLoss)
+                
+
+
+                //Generate Wallets
+                for(var i = 0; i < in_JSON.Account.Wallets.length; i++) {
+                  var currency = in_JSON.Account.Wallets[i];
+                  
+                  var tbl_wallet = document.getElementById('cnt_Wallets')
+                  // Insert a row in the table at the last row
+                  var rw_wallet   = tbl_wallet.insertRow(tbl_wallet.rows.length);
+                 
+                  //Generate Columns
+                  var cellprefix = ("cnt_Wallet_" + currency.currency + "_")
+                  var className = "wallet_tbl_cell"
+                  gen_NewRowCell(rw_wallet, null, 0, cellprefix, "currency_icon", null, null, className)
+                  gen_NewRowCell(rw_wallet, currency.currency, 1, cellprefix, "currency", null, null, className)
+                  gen_NewRowCell(rw_wallet, currency.available, 2, cellprefix, "available", null, null, className)
+                  gen_NewRowCell(rw_wallet, currency.pending, 3, cellprefix, "pending", null, null, className)
+                  gen_NewRowCell(rw_wallet, currency.balance, 4, cellprefix, "balance", null, null, className)
+                  //In Development
+                  gen_NewRowCell(rw_wallet, currency.valueAUD, 5, cellprefix, "valueAUD", null, null, className)
+
+                }
+
+
+                //Generate Rates 
+                for(var i = 0; i < in_JSON.Account.Rates.length; i++) {
+                  var rate = in_JSON.Account.Rates[i];
+
+                  var tbl_rates = document.getElementById('cnt_Rates')
+                  // Insert a row in the table at the last row
+                  var rw_rates   = tbl_rates.insertRow(tbl_rates.rows.length);
+                 
+                  //Generate Columns
+                  var cellprefix = ("cnt_Rates_" + rate.instrument + "_")
+                  var className = "rates_tbl_cell"
+                  gen_NewRowCell(rw_rates, rate.instrument, 0, cellprefix, "instrument", rate.instrument_delta, rate.instrument_CI, className)
+                  gen_NewRowCell(rw_rates, rate.bestAsk, 1, cellprefix, "bestAsk", rate.bestAsk_delta, rate.bestAsk_CI, className)
+                  gen_NewRowCell(rw_rates, (rate.bestAsk_PC+"%"), 2, cellprefix, "bestAsk_PC", rate.bestAsk_PC_delta, rate.bestAsk_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.bestBid, 3, cellprefix, "bestBid", rate.bestBid_delta, rate.bestBid_CI, className)
+                  gen_NewRowCell(rw_rates, (rate.bestBid_PC+"%"), 4, cellprefix, "bestBid_PC", rate.bestBid_PC_delta, rate.bestBid_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.lastPrice, 5, cellprefix, "lastPrice", rate.lastPrice_delta, rate.lastPrice_CI, className)
+                  gen_NewRowCell(rw_rates, (rate.lastPrice_PC+"%"), 6, cellprefix, "lastPrice_PC", rate.lastPrice_PC_delta, rate.lastPrice_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.volume24h, 7, cellprefix, "volume24h", rate.volume24h_delta, rate.volume24h_CI, className)
+                  gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
+                }
+
+
+                //Page Data Updated Sucessfully.
+                var msg = "Data Successfully Updated"
+                $('#footer').html(msg)
+                console.log(msg)
+              },
+
+              //Error Handling.
+              error: function(xhr) {
+                //Pop Up Alert - Error has occured.
+                $('#footer').html("Error Updating Data: Check Network Connection")
+              }     
+            });
+
+            time = {{config.rfrshInt}};
+
+            };
+          
+    }, 1000 );
+});
+</script>
+<!-- ================================================================================================================================================================ -->
+
+</html>
