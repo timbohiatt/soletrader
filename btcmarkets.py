@@ -78,7 +78,7 @@ class BTCMarkets:
 
     def order_detail(self, order_ids):
      	data_obj = {'orderIds':order_ids} 
-        postData = json.dumps(data_obj, separators=(',', ':'))
+        postData = json.dumps(data_obj, separators=(',',':'))
         return post_request(self.key, self.secret, '/order/detail', postData) 
 
     def account_balance(self):
