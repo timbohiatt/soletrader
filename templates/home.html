@@ -128,6 +128,7 @@
 
                   if (existing == false){
                     var rw_wallet   = tbl_wallet.insertRow(tbl_wallet.rows.length);
+                    rw_wallet.id = rowID
                  
                     //Generate Columns
                     var cellprefix = ("cnt_Wallet_" + currency.currency + "_")
@@ -158,6 +159,7 @@
 
                   if (existing == false){
                     var rw_rates = tbl_rates.insertRow(tbl_rates.rows.length);
+                    rw_rates.id = rowID
                    
                     //Generate Columns
                     var cellprefix = ("cnt_Rates_" + rate.instrument + "_")
