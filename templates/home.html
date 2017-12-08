@@ -115,21 +115,31 @@
                 for(var i = 0; i < in_JSON.Account.Wallets.length; i++) {
                   var currency = in_JSON.Account.Wallets[i];
                   
-                  var tbl_wallet = document.getElementById('cnt_Wallets')
-                  // Insert a row in the table at the last row
-                  var rw_wallet   = tbl_wallet.insertRow(tbl_wallet.rows.length);
-                 
-                  //Generate Columns
-                  var cellprefix = ("cnt_Wallet_" + currency.currency + "_")
-                  var className = "wallet_tbl_cell"
-                  gen_NewRowCell(rw_wallet, null, 0, cellprefix, "currency_icon", null, null, className)
-                  gen_NewRowCell(rw_wallet, currency.currency, 1, cellprefix, "currency", null, null, className)
-                  gen_NewRowCell(rw_wallet, currency.available, 2, cellprefix, "available", null, null, className)
-                  gen_NewRowCell(rw_wallet, currency.pending, 3, cellprefix, "pending", null, null, className)
-                  gen_NewRowCell(rw_wallet, currency.balance, 4, cellprefix, "balance", null, null, className)
-                  //In Development
-                  gen_NewRowCell(rw_wallet, currency.valueAUD, 5, cellprefix, "valueAUD", null, null, className)
 
+                  elementCore = 'cnt_Wallets'
+
+                  var tbl_wallet = document.getElementById(elementCore)
+                  // Insert a row in the table at the last row
+
+                  rowID = (elementCore + "_ItemRow_" + currency.currency)
+                  var existing = !!document.getElementById(rowID);
+
+                  console.log(rowID+"  Exists:"+existing)
+
+                  if (existing == false){
+                    var rw_wallet   = tbl_wallet.insertRow(tbl_wallet.rows.length);
+                 
+                    //Generate Columns
+                    var cellprefix = ("cnt_Wallet_" + currency.currency + "_")
+                    var className = "wallet_tbl_cell"
+                    gen_NewRowCell(rw_wallet, null, 0, cellprefix, "currency_icon", null, null, className)
+                    gen_NewRowCell(rw_wallet, currency.currency, 1, cellprefix, "currency", null, null, className)
+                    gen_NewRowCell(rw_wallet, currency.available, 2, cellprefix, "available", null, null, className)
+                    gen_NewRowCell(rw_wallet, currency.pending, 3, cellprefix, "pending", null, null, className)
+                    gen_NewRowCell(rw_wallet, currency.balance, 4, cellprefix, "balance", null, null, className)
+                    //In Development
+                    gen_NewRowCell(rw_wallet, currency.valueAUD, 5, cellprefix, "valueAUD", null, null, className)
+                  }
                 }
 
 
@@ -144,11 +154,10 @@
                   rowID = (elementCore + "_ItemRow_" + rate.instrument)
                   var existing = !!document.getElementById(rowID);
 
-                  console.log(rowID+"  "+existing)
+                  console.log(rowID+"  Exists:"+existing)
 
                   if (existing == false){
                     var rw_rates = tbl_rates.insertRow(tbl_rates.rows.length);
-                    cnt_Rates_Header
                    
                     //Generate Columns
                     var cellprefix = ("cnt_Rates_" + rate.instrument + "_")

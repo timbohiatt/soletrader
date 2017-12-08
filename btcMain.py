@@ -20,7 +20,7 @@ app = Flask(__name__)
 v_BTC_Client = None
 v_Trade = "TRUE"
 v_count = 0
-v_config = {'rfrshInt':10, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
+v_config = {'rfrshInt':3, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
 
 v_rates = []
 v_old_rates = []
