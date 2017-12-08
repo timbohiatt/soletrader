@@ -55,14 +55,14 @@
 
         <center><h2>Current Wallet Value</h2></center>
         <table id="cnt_Wallets" width="100%" border="0" cellspacing="0" cellpadding="0">
-           <tr><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
+           <tr id="cnt_Wallets_Header_1"><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
         </table>
         <br></br>
         <br></br>
         <center><h2>Current Rates</h2></center>
         <table id="cnt_Rates" width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> 
-          <tr><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> 
+          <tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> 
+          <tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> 
         </table>
         
       </article>
@@ -137,22 +137,32 @@
                 for(var i = 0; i < in_JSON.Account.Rates.length; i++) {
                   var rate = in_JSON.Account.Rates[i];
 
-                  var tbl_rates = document.getElementById('cnt_Rates')
+                  elementCore = 'cnt_Rates'
+                  var tbl_rates = document.getElementById(elementCore)
                   // Insert a row in the table at the last row
-                  var rw_rates   = tbl_rates.insertRow(tbl_rates.rows.length);
-                 
-                  //Generate Columns
-                  var cellprefix = ("cnt_Rates_" + rate.instrument + "_")
-                  var className = "rates_tbl_cell"
-                  gen_NewRowCell(rw_rates, rate.instrument, 0, cellprefix, "instrument", rate.instrument_delta, rate.instrument_CI, className)
-                  gen_NewRowCell(rw_rates, rate.bestAsk, 1, cellprefix, "bestAsk", rate.bestAsk_delta, rate.bestAsk_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.bestAsk_PC+"%"), 2, cellprefix, "bestAsk_PC", rate.bestAsk_PC_delta, rate.bestAsk_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.bestBid, 3, cellprefix, "bestBid", rate.bestBid_delta, rate.bestBid_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.bestBid_PC+"%"), 4, cellprefix, "bestBid_PC", rate.bestBid_PC_delta, rate.bestBid_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.lastPrice, 5, cellprefix, "lastPrice", rate.lastPrice_delta, rate.lastPrice_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.lastPrice_PC+"%"), 6, cellprefix, "lastPrice_PC", rate.lastPrice_PC_delta, rate.lastPrice_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.volume24h, 7, cellprefix, "volume24h", rate.volume24h_delta, rate.volume24h_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
+
+                  rowID = (elementCore + "_ItemRow_" + rate.instrument)
+                  var existing = !!document.getElementById(rowID);
+
+                  console.log(rowID+"  "+existing)
+
+                  if (existing == false){
+                    var rw_rates = tbl_rates.insertRow(tbl_rates.rows.length);
+                    cnt_Rates_Header
+                   
+                    //Generate Columns
+                    var cellprefix = ("cnt_Rates_" + rate.instrument + "_")
+                    var className = "rates_tbl_cell"
+                    gen_NewRowCell(rw_rates, rate.instrument, 0, cellprefix, "instrument", rate.instrument_delta, rate.instrument_CI, className)
+                    gen_NewRowCell(rw_rates, rate.bestAsk, 1, cellprefix, "bestAsk", rate.bestAsk_delta, rate.bestAsk_CI, className)
+                    gen_NewRowCell(rw_rates, (rate.bestAsk_PC+"%"), 2, cellprefix, "bestAsk_PC", rate.bestAsk_PC_delta, rate.bestAsk_PC_CI, className)
+                    gen_NewRowCell(rw_rates, rate.bestBid, 3, cellprefix, "bestBid", rate.bestBid_delta, rate.bestBid_CI, className)
+                    gen_NewRowCell(rw_rates, (rate.bestBid_PC+"%"), 4, cellprefix, "bestBid_PC", rate.bestBid_PC_delta, rate.bestBid_PC_CI, className)
+                    gen_NewRowCell(rw_rates, rate.lastPrice, 5, cellprefix, "lastPrice", rate.lastPrice_delta, rate.lastPrice_CI, className)
+                    gen_NewRowCell(rw_rates, (rate.lastPrice_PC+"%"), 6, cellprefix, "lastPrice_PC", rate.lastPrice_PC_delta, rate.lastPrice_PC_CI, className)
+                    gen_NewRowCell(rw_rates, rate.volume24h, 7, cellprefix, "volume24h", rate.volume24h_delta, rate.volume24h_CI, className)
+                    gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
+                  }
                 }
 
 

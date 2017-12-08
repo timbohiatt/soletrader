@@ -25,7 +25,7 @@ v_config = {'rfrshInt':10, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':
 v_rates = []
 v_old_rates = []
 v_wallets = []
-#v_wallet = []
+v_portfolio = {}
 v_portfolioBalance = 0.0
 
 
@@ -147,6 +147,12 @@ def detectChange(old, new):
 
 
 def getPortfolioBalance(rates, wallet):
+	global v_rates, v_old_rates, v_portfolio
+
+	#Move old to new
+	v_old_portfolio = v_portfolio
+
+
 	v_portfolioBalance = 0
 	portfolio = {}
 	portfolio['balance'] = Decimal(0.0)
@@ -159,7 +165,6 @@ def getPortfolioBalance(rates, wallet):
 				portfolio['balance'] = portfolio['balance'] + (Decimal(currency['balance']))
 				portfolio['pending'] = portfolio['pending'] + (Decimal(currency['pending']))
 				portfolio['available'] = portfolio['available'] + (Decimal(currency['available']))
-				#print ("AUD = " + str((Decimal(currency['balance']))))
 			else:
 				for rate in rates: 
 					if (currency['currency'] == rate['instrument']):
@@ -167,7 +172,8 @@ def getPortfolioBalance(rates, wallet):
 						portfolio['balance'] = portfolio['balance'] + (Decimal(currency['balance'])*Decimal(rate['bestBid']))
 						portfolio['pending'] = portfolio['pending'] + (Decimal(currency['pending'])*Decimal(rate['bestBid']))
 						portfolio['available'] = portfolio['available'] + (Decimal(currency['available'])*Decimal(rate['bestBid']))
-			
+						
+						
 
 
 
@@ -175,11 +181,17 @@ def getPortfolioBalance(rates, wallet):
 	portfolio['totalInvested'] = 10100.00
 	valueProfitLoss = Decimal(Decimal(portfolio['balance']) - Decimal(portfolio['totalInvested']))
 	portfolio['valueProfitLoss'] = str(Decimal(valueProfitLoss))
+	#portfolio['valueProfitLoss_CI'], portfolio['valueProfitLoss_delta'] = detectChange(v_old_portfolio['valueProfitLoss'], portfolio['valueProfitLoss'])
 	portfolio['percentProfitLoss'] = str(getPercentageChange(valueProfitLoss, portfolio['totalInvested']))
+	#portfolio['percentProfitLoss_CI'], portfolio['percentProfitLoss_delta'] = detectChange(v_old_portfolio['percentProfitLoss'], portfolio['percentProfitLoss'])
 	portfolio['balance'] = str(portfolio['balance']) 
+	#portfolio['balance_CI'], portfolio['balance_delta'] = detectChange(v_old_portfolio['balance'], portfolio['balance'])
 	portfolio['pending'] = str(portfolio['pending']) 
+	#portfolio['pending_CI'], portfolio['pending_delta'] = detectChange(v_old_portfolio['bestBid'], portfolio['bestBid'])
 	portfolio['available'] = str(portfolio['available'])
+	#portfolio['available_CI'], portfolio['available_delta'] = detectChange(v_old_portfolio['available'], portfolio['available'])
 
+	v_portfolio = portfolio
 	return portfolio
 
 

@@ -7,7 +7,6 @@ function gen_NewRowCell(row, value, cellIndex, cellprefix, cellpostfix, delta, C
 	
 	if (existing == true) {
 		//Cell Already Exsits:
-
 		if (delta == true){
 			var cell = document.getElementById(cellID)
 			cell.innerHTML = value
@@ -29,9 +28,8 @@ function gen_NewRowCell(row, value, cellIndex, cellprefix, cellpostfix, delta, C
 }
 
 
-
+//Animates the Cell Based on CD Indication. Up or Down.
 function animateCellValueChange(cell, CDIndicator){
-
 		if (CDIndicator == "U"){
 			cell.style.animation = "pulse_up 5s steps(50), 1";
 		}
@@ -43,9 +41,8 @@ function animateCellValueChange(cell, CDIndicator){
 		}
 }
 
-
+//Determin if the Cell Value is an Increase or a Decrease from the previous Number
 function att_profit_numPosNeg(cell, value){
-		console.log("Adjusting The Cell Values for profit")
 		if (value > 0.00){
 			animateCellValueChange(cell, "U")
 		}
