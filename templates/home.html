@@ -120,17 +120,14 @@
 
                   var tbl_wallet = document.getElementById(elementCore)
                   // Insert a row in the table at the last row
-
                   rowID = (elementCore + "_ItemRow_" + currency.currency)
                   var existing = !!document.getElementById(rowID);
-
-                  console.log(rowID+"  Exists:"+existing)
 
                   if (existing == false){
                     var rw_wallet   = tbl_wallet.insertRow(tbl_wallet.rows.length);
                     rw_wallet.id = rowID
                   }
-                    //Generate Columns
+                  //Generate Columns
                   var cellprefix = ("cnt_Wallet_" + currency.currency + "_")
                   var className = "wallet_tbl_cell"
                   gen_NewRowCell(rw_wallet, null, 0, cellprefix, "currency_icon", null, null, className)
@@ -151,11 +148,8 @@
                   elementCore = 'cnt_Rates'
                   var tbl_rates = document.getElementById(elementCore)
                   // Insert a row in the table at the last row
-
                   rowID = (elementCore + "_ItemRow_" + rate.instrument)
                   var existing = !!document.getElementById(rowID);
-
-                  console.log(rowID+"  Exists:"+existing)
 
                   if (existing == false){
                     var rw_rates = tbl_rates.insertRow(tbl_rates.rows.length);
