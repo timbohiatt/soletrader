@@ -20,7 +20,7 @@ app = Flask(__name__)
 v_BTC_Client = None
 v_Trade = "TRUE"
 v_count = 0
-v_config = {'rfrshInt':10, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000, 'BTCAPIKey':os.environ['BTCAPIKEY'], 'BTCAPISecret':os.environ['BTCAPISECRET']}
+v_config = {'rfrshInt':10, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
 
 v_rates = []
 v_old_rates = []
@@ -116,8 +116,9 @@ def msg(message):
 def createClient():
 	global v_BTC_Client
 	if v_BTC_Client is None:
-		v_BTC_Client = BTCMarkets(v_config['BTCAPIKey'], v_config['BTCAPISecret'])
+		v_BTC_Client = BTCMarkets(os.environ['BTCAPIKEY'], os.environ['BTCAPISECRET'])
 		#msg("BTC Client Created")
+
 	return
 
 
