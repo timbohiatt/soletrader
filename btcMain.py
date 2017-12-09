@@ -54,7 +54,9 @@ def dyn_up_Data():
 	wallet = getWallet()
 	rates = getMarketRates()
 	tradeHistory = getTradeHistory()
+
 	portfolio = getPortfolioBalance(rates, wallet)
+	getPendingTrades()
 	json_dict = {"Username":"timbohiatt", "Full Name":"Tim Hiatt", "Email":"timbohiatt@gmail.com" ,"Wallets":wallet, "Rates":rates, "Portfolio":portfolio, "TradeHistory":tradeHistory, "Configuration":config}
 	json_package = {"Account":json_dict}
 
@@ -241,6 +243,7 @@ def getMarketRates():
 			rate['bestBid_PC_CI'], rate['bestBid_PC_delta'] = detectChange(old_bestBid_PC, rate['bestBid_PC'])
 			rate['bestAsk'] =  (resp_rate['bestAsk'])
 			rate['bestAsk_CI'], rate['bestAsk_delta'] = detectChange(old_bestAsk, rate['bestAsk'])
+
 			rate['bestAsk_PC'] =  getPercentageChange(rate['bestAsk'], old_bestAsk)
 			rate['bestAsk_PC_CI'], rate['bestAsk_PC_delta'] = detectChange(old_bestAsk_PC,rate['bestAsk_PC'])
 			rate['lastPrice'] =  (resp_rate['lastPrice'])
@@ -305,7 +308,14 @@ def getTradeHistory():
 
 	return v_tradeHistory
 
-	
+def getPendingTrades():
+
+	currencyPair = [['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
+	for pair in currencyPair:
+		openOrders = v_BTC_Client.order_open(self, pair[0], pair[1], 200, 985787075)
+		print openOrders
+
+	return
 
 
 if __name__ == '__main__':

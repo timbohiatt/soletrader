@@ -17,6 +17,7 @@ function gen_NewRowCell(row, value, cellIndex, cellprefix, cellpostfix, delta, C
 
 		//Cell Doesn't Exist:
 		//Generate New Cell in the Row.
+
 		var cell  = row.insertCell(cellIndex);
 		//Set Cell ID to the cellPrefix + cellPostfix
 	    cell.id = cellID
@@ -31,13 +32,13 @@ function gen_NewRowCell(row, value, cellIndex, cellprefix, cellpostfix, delta, C
 //Animates the Cell Based on CD Indication. Up or Down.
 function animateCellValueChange(cell, CDIndicator){
 		if (CDIndicator == "U"){
-			cell.style.animation = "pulse_up 5s steps(50), 1";
+			cell.style.animation = "pulse_up 8s steps(50), 1";
 		}
 		else if (CDIndicator == "D"){
-			cell.style.animation = "pulse_down 5s steps(50), 1";	
+			cell.style.animation = "pulse_down 8s steps(50), 1";	
 		}
 		else{
-			cell.style.animation = "pulse_neutral 5s steps(50), 1";
+			cell.style.animation = "pulse_neutral 8s steps(50), 1";
 		}
 }
 
