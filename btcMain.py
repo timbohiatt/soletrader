@@ -25,6 +25,7 @@ v_config = {'rfrshInt':3, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':1
 v_rates = []
 v_old_rates = []
 v_wallets = []
+v_openOrders = []
 v_portfolio = {}
 v_portfolioBalance = 0.0
 
@@ -56,8 +57,8 @@ def dyn_up_Data():
 	tradeHistory = getTradeHistory()
 
 	portfolio = getPortfolioBalance(rates, wallet)
-	getPendingTrades()
-	json_dict = {"Username":"timbohiatt", "Full Name":"Tim Hiatt", "Email":"timbohiatt@gmail.com" ,"Wallets":wallet, "Rates":rates, "Portfolio":portfolio, "TradeHistory":tradeHistory, "Configuration":config}
+	openOrders = getPendingTrades()
+	json_dict = {"Username":"timbohiatt", "Full Name":"Tim Hiatt", "Email":"timbohiatt@gmail.com" ,"Wallets":wallet, "Rates":rates, "Portfolio":portfolio, "TradeHistory":tradeHistory, "OpenOrders":openOrders, "Configuration":config}
 	json_package = {"Account":json_dict}
 
 	#	print  json.dumps(json_package, indent=4, sort_keys=True)
@@ -289,7 +290,7 @@ def getWallet():
 
 
 def getTradeHistory():
-
+	global v_openOrders
 	tradeHistory = v_BTC_Client.trade_history('AUD', 'ETH', 200, 809829145)
 	v_tradeHistory = []
 
@@ -309,13 +310,25 @@ def getTradeHistory():
 	return v_tradeHistory
 
 def getPendingTrades():
-
-	currencyPair = [['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
+	v_openOrders= []
+	currencyPair = [['AUD','ETH'],['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
 	for pair in currencyPair:
 		openOrders = v_BTC_Client.order_open(pair[0], pair[1], 200, 985787075)
-		print openOrders
+		if openOrders['orders'] is not None:
+			for orderItem in openOrders['orders']:
+				order = {}
+				order['clientRequestId'] = orderItem['clientRequestId']
+				order['instrument'] = orderItem['instrument']
+				order['orderType'] = orderItem['ordertype']
+				order['price'] = str((Decimal(orderItem['price']))/ Decimal(v_config['BTCDivisor']))
+				order['volume'] = str((Decimal(orderItem['volume']))/ Decimal(v_config['BTCDivisor']))
+				order['openVolume'] = str((Decimal(orderItem['openVolume']))/ Decimal(v_config['BTCDivisor']))
+				order['status'] = orderItem['status']
+				v_openOrders.append(order)
+	
+	print v_openOrders
 
-	return
+	return v_openOrders
 
 
 if __name__ == '__main__':
