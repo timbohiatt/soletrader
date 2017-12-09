@@ -312,7 +312,7 @@ def getPendingTrades():
 
 	currencyPair = [['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
 	for pair in currencyPair:
-		openOrders = v_BTC_Client.order_open(self, pair[0], pair[1], 200, 985787075)
+		openOrders = v_BTC_Client.order_open(pair[0], pair[1], 200, 985787075)
 		print openOrders
 
 	return
