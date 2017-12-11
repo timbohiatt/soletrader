@@ -2,3 +2,5 @@ flask
 requests
 gunicorn
 jinja2
+flask-sqlalchemy
+psycopg2
