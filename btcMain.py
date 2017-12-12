@@ -219,6 +219,7 @@ def getMarketRates():
 		old_volume24h_PC = 0.00000
 
 		resp_rate = v_BTC_Client.get_market_tick(pair[0],pair[1])
+		print resp_rate
 		if resp_rate is not None:
 			getcontext().prec = v_config['DecPrecision']
 			rate = {}
@@ -268,6 +269,7 @@ def getMarketRates():
 def getWallet():
 	global v_wallets
 	v_accountBalances = v_BTC_Client.account_balance()
+	print v_accountBalances
 	v_wallets = []
 	for currency in v_accountBalances:
 
@@ -295,6 +297,7 @@ def getWallet():
 def getTradeHistory():
 	global v_openOrders
 	tradeHistory = v_BTC_Client.trade_history('AUD', 'ETH', 200, 809829145)
+	print tradeHistory
 	v_tradeHistory = []
 
 	for tradeItem in tradeHistory['trades']:
