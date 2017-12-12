@@ -20,7 +20,7 @@ app = Flask(__name__)
 v_BTC_Client = None
 v_Trade = "TRUE"
 v_count = 0
-v_config = {'rfrshInt':3, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
+v_config = {'rfrshInt':30, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
 
 v_rates = []
 v_old_rates = []
@@ -240,20 +240,23 @@ def getMarketRates():
 			rate['currency'] =  str(resp_rate['currency'])
 			rate['bestBid'] =  (resp_rate['bestBid'])
 			rate['bestBid_CI'], rate['bestBid_delta'] = detectChange(old_bestBid, rate['bestBid'])
-			rate['bestBid_PC'] = getPercentageChange(rate['bestBid'], old_bestBid)
+			#rate['bestBid_PC'] = getPercentageChange(rate['bestBid'], old_bestBid)
+			rate['bestBid_PC'] = getPercentageChange(old_bestBid, rate['bestBid'])
 			rate['bestBid_PC_CI'], rate['bestBid_PC_delta'] = detectChange(old_bestBid_PC, rate['bestBid_PC'])
 			rate['bestAsk'] =  (resp_rate['bestAsk'])
 			rate['bestAsk_CI'], rate['bestAsk_delta'] = detectChange(old_bestAsk, rate['bestAsk'])
-
-			rate['bestAsk_PC'] =  getPercentageChange(rate['bestAsk'], old_bestAsk)
+			#rate['bestAsk_PC'] =  getPercentageChange(rate['bestAsk'], old_bestAsk)
+			rate['bestAsk_PC'] =  getPercentageChange(old_bestAsk, rate['bestAsk'])
 			rate['bestAsk_PC_CI'], rate['bestAsk_PC_delta'] = detectChange(old_bestAsk_PC,rate['bestAsk_PC'])
 			rate['lastPrice'] =  (resp_rate['lastPrice'])
 			rate['lastPrice_CI'], rate['lastPrice_delta'] = detectChange(old_lastPrice, rate['lastPrice'])
-			rate['lastPrice_PC'] = getPercentageChange(rate['lastPrice'], old_lastPrice)
+			#rate['lastPrice_PC'] = getPercentageChange(rate['lastPrice'], old_lastPrice)
+			rate['lastPrice_PC'] = getPercentageChange(old_lastPrice, rate['lastPrice'])
 			rate['lastPrice_PC_CI'], rate['lastPrice_PC_delta'] = detectChange(old_lastPrice_PC, rate['lastPrice_PC'])
 			rate['volume24h'] =  (resp_rate['volume24h'])
 			rate['volume24h_CI'], rate['volume24h_PC_delta'] = detectChange(old_volume24h, rate['volume24h'])
-			rate['volume24h_PC'] = getPercentageChange(rate['volume24h'], old_volume24h)
+			#rate['volume24h_PC'] = getPercentageChange(rate['volume24h'], old_volume24h)
+			rate['volume24h_PC'] = getPercentageChange(old_volume24h, rate['volume24h'])
 			rate['volume24h_PC_CI'], rate['volume24h_PC_delta'] = detectChange(old_volume24h_PC, rate['volume24h_PC'])
 			rate['sys_updated'] = getDateTimeStamp()
 			#Add the Current Rate Data to the collection of rates.

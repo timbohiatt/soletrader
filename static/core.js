@@ -32,13 +32,13 @@ function gen_NewRowCell(row, value, cellIndex, cellprefix, cellpostfix, delta, C
 //Animates the Cell Based on CD Indication. Up or Down.
 function animateCellValueChange(cell, CDIndicator){
 		if (CDIndicator == "U"){
-			cell.style.animation = "pulse_up 8s steps(50), 1";
+			cell.style.animation = "pulse_up 15s steps(50), 1";
 		}
 		else if (CDIndicator == "D"){
-			cell.style.animation = "pulse_down 8s steps(50), 1";	
+			cell.style.animation = "pulse_down 15s steps(50), 1";	
 		}
 		else{
-			cell.style.animation = "pulse_neutral 8s steps(50), 1";
+			cell.style.animation = "pulse_neutral 15s steps(50), 1";
 		}
 }
 
