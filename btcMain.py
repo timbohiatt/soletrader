@@ -20,7 +20,7 @@ app = Flask(__name__)
 v_BTC_Client = None
 v_Trade = "TRUE"
 v_count = 0
-v_config = {'rfrshInt':5, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
+v_config = {'rfrshInt':3, 'opportunity':False, 'DecPrecision':10, 'BTCDivisor':100000000}
 
 v_rates = []
 v_old_rates = []
@@ -61,7 +61,7 @@ def dyn_up_Data():
 	json_dict = {"Username":"timbohiatt", "Full Name":"Tim Hiatt", "Email":"timbohiatt@gmail.com" ,"Wallets":wallet, "Rates":rates, "Portfolio":portfolio, "TradeHistory":tradeHistory, "OpenOrders":openOrders, "Configuration":config}
 	json_package = {"Account":json_dict}
 
-	#	print  json.dumps(json_package, indent=4, sort_keys=True)
+	print json.dumps(json_package, indent=4, sort_keys=True)
 	msg(" Core Data Updated")
 	#return render_template('obj_DataUpdate.html',  flask_RawData=json_package)
 	return jsonify(json_package)
@@ -219,7 +219,7 @@ def getMarketRates():
 		old_volume24h_PC = 0.00000
 
 		resp_rate = v_BTC_Client.get_market_tick(pair[0],pair[1])
-		print resp_rate
+		#print resp_rate
 		if resp_rate is not None:
 			getcontext().prec = v_config['DecPrecision']
 			rate = {}
@@ -269,7 +269,7 @@ def getMarketRates():
 def getWallet():
 	global v_wallets
 	v_accountBalances = v_BTC_Client.account_balance()
-	print v_accountBalances
+	#print v_accountBalances
 	v_wallets = []
 	for currency in v_accountBalances:
 
@@ -297,18 +297,18 @@ def getWallet():
 def getTradeHistory():
 	global v_openOrders
 	tradeHistory = v_BTC_Client.trade_history('AUD', 'ETH', 200, 809829145)
-	print tradeHistory
+	#print tradeHistory
 	v_tradeHistory = []
 
 	for tradeItem in tradeHistory['trades']:
 		trade = {}
 		tradeItem['orderId'] = tradeItem['orderId']
-		tradeItem['fee'] = tradeItem['fee']
+		tradeItem['fee'] =  str((Decimal(tradeItem['fee']))/ Decimal(v_config['BTCDivisor']))
 		tradeItem['description'] = tradeItem['description']
-		tradeItem['price'] = tradeItem['price']
+		tradeItem['price'] =  str((Decimal(tradeItem['price']))/ Decimal(v_config['BTCDivisor']))
 		tradeItem['creationTime'] = tradeItem['creationTime']
 		tradeItem['id'] = tradeItem['id']
-		tradeItem['volume'] = tradeItem['volume']
+		tradeItem['volume'] = str((Decimal(tradeItem['volume']))/ Decimal(v_config['BTCDivisor']))
 		tradeItem['side'] = tradeItem['side']
 		#Add the Current Trade Item Data to the collection of rates.
 		v_tradeHistory.append(tradeItem)
@@ -332,7 +332,7 @@ def getPendingTrades():
 				order['status'] = orderItem['status']
 				v_openOrders.append(order)
 	
-	print v_openOrders
+	#print v_openOrders
 
 	return v_openOrders
 

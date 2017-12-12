@@ -73,6 +73,18 @@ article {
 }
 
 
+/* Rates Table Formatting*/
+.tradeHistory_tbl_cell{
+    /*Cell Sizing*/
+    border: 1px solid black;
+    vertical-align:middle;
+    padding: 5px;
+    width: 16.66666%;
+
+    /*Text Control*/
+    text-align: center;
+}
+
 
 
 

@@ -58,13 +58,18 @@
            <tr id="cnt_Wallets_Header_1"><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
         </table>
         <br></br>
-        <br></br>
         <center><h2>Current Rates</h2></center>
         <table id="cnt_Rates" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> 
           <tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> 
         </table>
-        
+        <br></br>
+        <center><h2>Trade History</h2></center>
+        <table id="cnt_TradeHistory" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr id="cnt_TradeHistory_Header_1"><th>Order ID</th><th>ID</th><th>Price</th><th>Fee</th><th>Order Type</th><th>Volume</th></tr> 
+        </table>
+
+
       </article>
 
 
@@ -169,6 +174,36 @@
                   gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
                   
                 }
+
+
+
+                //Generate Trade History 
+                for(var i = 0; i < in_JSON.Account.TradeHistory.length; i++) {
+                  var tradeHistory = in_JSON.Account.TradeHistory[i];
+
+                  elementCore = 'cnt_TradeHistory'
+                  var tbl_tradeHistory = document.getElementById(elementCore)
+                  // Insert a row in the table at the last row
+                  rowID = (elementCore + "_ItemRow_" + tradeHistory.id)
+                  var existing = !!document.getElementById(rowID);
+
+                  if (existing == false){
+                    var rw_tradeHistory = tbl_tradeHistory.insertRow(tbl_tradeHistory.rows.length);
+                    rw_tradeHistory.id = rowID
+                    console.log("NEW ROW " + rowID)
+                  } 
+                    //Generate Columns
+                  var cellprefix = ("cnt_TradeHistory_" + tradeHistory.orderId + "_")
+                  var className = "tradeHistory_tbl_cell"
+                  gen_NewRowCell(rw_tradeHistory, tradeHistory.orderId, 0, cellprefix, "orderId", null, null, className)
+                  gen_NewRowCell(rw_tradeHistory, tradeHistory.id, 1, cellprefix, "id", null, null, className)
+                  gen_NewRowCell(rw_tradeHistory, ("$"+tradeHistory.price), 2, cellprefix, "price", null, null, className)
+                  gen_NewRowCell(rw_tradeHistory, ("$"+tradeHistory.fee), 3, cellprefix, "fee", null, null, className)
+                  gen_NewRowCell(rw_tradeHistory, tradeHistory.side, 4, cellprefix, "side", null, null, className)
+                  gen_NewRowCell(rw_tradeHistory, (tradeHistory.volume), 5, cellprefix, "volume", null, null, className)
+
+                }
+
 
 
                 //Page Data Updated Sucessfully.
