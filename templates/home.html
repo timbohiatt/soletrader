@@ -165,13 +165,13 @@
                   var className = "rates_tbl_cell"
                   gen_NewRowCell(rw_rates, rate.instrument, 0, cellprefix, "instrument", rate.instrument_delta, rate.instrument_CI, className)
                   gen_NewRowCell(rw_rates, rate.bestAsk, 1, cellprefix, "bestAsk", rate.bestAsk_delta, rate.bestAsk_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.bestAsk_PC+"%"), 2, cellprefix, "bestAsk_PC", rate.bestAsk_PC_delta, rate.bestAsk_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.bestBid, 3, cellprefix, "bestBid", rate.bestBid_delta, rate.bestBid_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.bestBid_PC+"%"), 4, cellprefix, "bestBid_PC", rate.bestBid_PC_delta, rate.bestBid_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.lastPrice, 5, cellprefix, "lastPrice", rate.lastPrice_delta, rate.lastPrice_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.lastPrice_PC+"%"), 6, cellprefix, "lastPrice_PC", rate.lastPrice_PC_delta, rate.lastPrice_PC_CI, className)
-                  gen_NewRowCell(rw_rates, rate.volume24h, 7, cellprefix, "volume24h", rate.volume24h_delta, rate.volume24h_CI, className)
-                  gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
+                  //gen_NewRowCell(rw_rates, (rate.bestAsk_PC+"%"), 2, cellprefix, "bestAsk_PC", rate.bestAsk_PC_delta, rate.bestAsk_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.bestBid, 2, cellprefix, "bestBid", rate.bestBid_delta, rate.bestBid_CI, className)
+                  //gen_NewRowCell(rw_rates, (rate.bestBid_PC+"%"), 4, cellprefix, "bestBid_PC", rate.bestBid_PC_delta, rate.bestBid_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.lastPrice, 3, cellprefix, "lastPrice", rate.lastPrice_delta, rate.lastPrice_CI, className)
+                  //gen_NewRowCell(rw_rates, (rate.lastPrice_PC+"%"), 6, cellprefix, "lastPrice_PC", rate.lastPrice_PC_delta, rate.lastPrice_PC_CI, className)
+                  gen_NewRowCell(rw_rates, rate.volume24h, 4, cellprefix, "volume24h", rate.volume24h_delta, rate.volume24h_CI, className)
+                  //gen_NewRowCell(rw_rates, (rate.volume24h_PC+"%"), 8, cellprefix, "volume24h_PC", rate.volume24h_PC_delta, rate.volume24h_PC_CI, className)
                   
                 }
 

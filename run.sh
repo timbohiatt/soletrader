@@ -1,6 +1,10 @@
 #Export the Local SoleTrader DB
 pg_dump -Fc -h localhost -U svc_soletrader soletrader > soletrader.dump
 
+
+#Open FTP Connection
+#ncftp -u svc_soletrader -p !SoleTrader$$$ tjhiatt.commit
+
 #Set the GIT Comment from the CLI Argument.
 GITComment="$1"
 
@@ -10,6 +14,7 @@ git add .
 git commit -m "$GITComment" 
 #Push the Git Chnages to the Master Heroku Branch and Deploy! 
 git push heroku master
+
 
 
 #Export Path Names for Flask App Before Executing
