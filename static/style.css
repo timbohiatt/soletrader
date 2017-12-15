@@ -86,6 +86,21 @@ article {
 }
 
 
+/* Open Orders Table Formatting*/
+.openOrders_tbl_cell{
+    /*Cell Sizing*/
+    border: 1px solid black;
+    vertical-align:middle;
+    padding: 5px;
+    width: 14.28%;
+
+    /*Text Control*/
+    text-align: center;
+}
+
+
+
+
 
 
 /* Portfolio Value Formatting*/

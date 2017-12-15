@@ -66,9 +66,14 @@
          <!--<tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> -->
         </table>
         <br></br>
+        <center><h2>Pending Trades</h2></center>
+        <table id="cnt_PendingTrades" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr id="cnt_PendingTrades_Header_1"><th>Order ID</th><th>Currency</th><th>Order Type</th><th>Price</th><th>Volume</th><th>Open Volume</th><th>Status</th></tr> 
+        </table>
+        <br></br>
         <center><h2>Trade History</h2></center>
-        <table id="cnt_TradeHistory" width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr id="cnt_TradeHistory_Header_1"><th>Order ID</th><th>ID</th><th>Price</th><th>Fee</th><th>Order Type</th><th>Volume</th></tr> 
+        <table id="cnt_OpenOrders" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr id="cnt_OpenOrders_Header_1"><th>Order ID</th><th>ID</th><th>Price</th><th>Fee</th><th>Order Type</th><th>Volume</th></tr> 
         </table>
 
 
@@ -192,7 +197,6 @@
                   if (existing == false){
                     var rw_tradeHistory = tbl_tradeHistory.insertRow(tbl_tradeHistory.rows.length);
                     rw_tradeHistory.id = rowID
-                    console.log("NEW ROW " + rowID)
                   } 
                     //Generate Columns
                   var cellprefix = ("cnt_TradeHistory_" + tradeHistory.orderId + "_")
@@ -205,6 +209,36 @@
                   gen_NewRowCell(rw_tradeHistory, (tradeHistory.volume), 5, cellprefix, "volume", null, null, className)
 
                 }
+
+
+
+                 //Generate Pending Trades 
+                for(var i = 0; i < in_JSON.Account.OpenOrders.length; i++) {
+                  var openOrders = in_JSON.Account.OpenOrders[i];
+
+                  elementCore = 'cnt_OpenOrders'
+                  var tbl_openOrders = document.getElementById(elementCore)
+                  // Insert a row in the table at the last row
+                  rowID = (elementCore + "_ItemRow_" + openOrders.id)
+                  var existing = !!document.getElementById(rowID);
+
+                  if (existing == false){
+                    var rw_openOrders = tbl_openOrders.insertRow(tbl_openOrders.rows.length);
+                    rw_openOrders.id = rowID
+                  } 
+                    //Generate Columns
+                  var cellprefix = ("cnt_openOrders_" + openOrders.orderId + "_")
+                  var className = "openOrders_tbl_cell"
+                  gen_NewRowCell(rw_openOrders, openOrders.clientRequestId, 0, cellprefix, "orderId", null, null, className)
+                  gen_NewRowCell(rw_openOrders, openOrders.instrument, 1, cellprefix, "instrument", null, null, className)
+                  gen_NewRowCell(rw_openOrders,  openOrders.orderType, 2, cellprefix, "orderType", null, null, className)
+                  gen_NewRowCell(rw_openOrders, ("$"+openOrders.price), 3, cellprefix, "price", null, null, className)
+                  gen_NewRowCell(rw_openOrders, openOrders.volume, 4, cellprefix, "volume", null, null, className)
+                  gen_NewRowCell(rw_openOrders, (openOrders.openVolume), 5, cellprefix, "openVolume", null, null, className)
+                  gen_NewRowCell(rw_openOrders, (openOrders.status), 6, cellprefix, "status", null, null, className)
+
+                }
+
 
 
 
