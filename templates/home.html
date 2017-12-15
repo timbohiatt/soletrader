@@ -188,7 +188,7 @@
                 for(var i = 0; i < in_JSON.Account.TradeHistory.length; i++) {
                   var tradeHistory = in_JSON.Account.TradeHistory[i];
 
-                  elementCore = 'cnt_TradeHistory'
+                  elementCore = 'cnt_PendingTrades'
                   var tbl_tradeHistory = document.getElementById(elementCore)
                   // Insert a row in the table at the last row
                   rowID = (elementCore + "_ItemRow_" + tradeHistory.id)
@@ -200,7 +200,7 @@
                   } 
                     //Generate Columns
                   console.log("New Row")
-                  var cellprefix = ("cnt_TradeHistory_" + tradeHistory.orderId + "_")
+                  var cellprefix = ("cnt_PendingTrades_" + tradeHistory.orderId + "_")
                   var className = "tradeHistory_tbl_cell"
                   gen_NewRowCell(rw_tradeHistory, tradeHistory.orderId, 0, cellprefix, "orderId", null, null, className)
                   gen_NewRowCell(rw_tradeHistory, tradeHistory.id, 1, cellprefix, "id", null, null, className)
