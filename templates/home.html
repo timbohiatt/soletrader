@@ -199,6 +199,7 @@
                     rw_tradeHistory.id = rowID
                   } 
                     //Generate Columns
+                  console.log("New Row")
                   var cellprefix = ("cnt_TradeHistory_" + tradeHistory.orderId + "_")
                   var className = "tradeHistory_tbl_cell"
                   gen_NewRowCell(rw_tradeHistory, tradeHistory.orderId, 0, cellprefix, "orderId", null, null, className)
