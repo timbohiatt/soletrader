@@ -61,7 +61,7 @@ def dyn_up_Data():
 	json_dict = {"Username":"timbohiatt", "Full Name":"Tim Hiatt", "Email":"timbohiatt@gmail.com" ,"Wallets":wallet, "Rates":rates, "Portfolio":portfolio, "TradeHistory":tradeHistory, "OpenOrders":openOrders, "Configuration":config}
 	json_package = {"Account":json_dict}
 
-	print json.dumps(json_package, indent=4, sort_keys=True)
+	#print json.dumps(json_package, indent=4, sort_keys=True)
 	msg(" Core Data Updated")
 	#return render_template('obj_DataUpdate.html',  flask_RawData=json_package)
 	return jsonify(json_package)
@@ -331,6 +331,8 @@ def getPendingTrades():
 				order['openVolume'] = str((Decimal(orderItem['openVolume']))/ Decimal(v_config['BTCDivisor']))
 				order['status'] = orderItem['status']
 				v_openOrders.append(order)
+				print order
+				print v_openOrders
 	
 	#print v_openOrders
 
