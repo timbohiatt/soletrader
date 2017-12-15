@@ -317,7 +317,7 @@ def getTradeHistory():
 
 def getPendingTrades():
 	v_openOrders= []
-	currencyPair = [['AUD','ETH'],['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
+	currencyPair = [['AUD','XRP'],['AUD','BTC'],['AUD','LTC'],['AUD','ETH'],['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
 	for pair in currencyPair:
 		openOrders = v_BTC_Client.order_open(pair[0], pair[1], 200, 985787075)
 		if openOrders['orders'] is not None:
