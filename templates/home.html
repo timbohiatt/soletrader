@@ -3,13 +3,23 @@
   <!-- ===    SCRIPTS   =============================================================================================================================================== -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='core.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  //Control of the Accordian Elements
+  $( function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  } );
+  </script>
   <!-- ===    STYLES    =============================================================================================================================================== -->
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
   <!-- ================================================================================================================================================================ -->
   <head>
-
     <title id="cnt_title"></title>
-
   </head>
   <!-- ================================================================================================================================================================ -->
   
@@ -52,8 +62,37 @@
       </div>
 
       <article>
+        <div id="accordion">
+          <h2>Current Wallet Value</h2>
+          <div>
+            <table id="cnt_Wallets" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr id="cnt_Wallets_Header_1"><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
+            </table>
+          </div>
+          <h2>Current Rates</h2>
+          <div>
+            <table id="cnt_Rates" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="1">Purchase Price</th><th colspan="1">Sell Price</th><th colspan="1">Last Price</th><th colspan="1">24 Hour Volume</th></tr> 
+              <!--<tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>Rate</th><th>Rate</th><th>Rate</th></tr>-->
+              <!--<tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> -->
+              <!--<tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> -->
+            </table>
+          </div>
+          <h2>Pending Trades</h2>
+          <div>
+            <table id="cnt_OpenOrders" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr id="cnt_OpenOrders_Header_1"><th>Order ID</th><th>ID</th><th>Price</th><th>Fee</th><th>Order Type</th><th>Volume</th></tr> 
+            </table>
+          </div>
+          <h2>Trade History</h2>
+          <div>
+            <table id="cnt_PendingTrades" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr id="cnt_PendingTrades_Header_1"><th>Order ID</th><th>Currency</th><th>Order Type</th><th>Price</th><th>Volume</th><th>Open Volume</th><th>Status</th></tr> 
+            </table>
+          </div>
+        </div>
 
-        <center><h2>Current Wallet Value</h2></center>
+        <!--<center><h2>Current Wallet Value</h2></center>
         <table id="cnt_Wallets" width="100%" border="0" cellspacing="0" cellpadding="0">
            <tr id="cnt_Wallets_Header_1"><th colspan="2">Crypto-Currency</th><th>Available Coins</th><th>Pending Coins</th><th>Total Coins</th><th>Value (AUD)</th></tr> 
         </table>
@@ -61,10 +100,7 @@
         <center><h2>Current Rates</h2></center>
         <table id="cnt_Rates" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="1">Purchase Price</th><th colspan="1">Sell Price</th><th colspan="1">Last Price</th><th colspan="1">24 Hour Volume</th></tr> 
-         <!--<tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>Rate</th><th>Rate</th><th>Rate</th></tr>-->
-         <!--<tr id="cnt_Rates_Header_1"><th>Currency</th><th colspan="2">Purchase Price</th><th colspan="2">Sell Price</th><th colspan="2">Last Price</th><th colspan="2">24 Hour Volume</th></tr> -->
-         <!--<tr id="cnt_Rates_Header_2"><th></th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th><th>Rate</th><th>% Change</th></tr> -->
-        </table>
+                </table>
         <br></br>
         <center><h2>Pending Trades</h2></center>
         <table id="cnt_PendingTrades" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -75,6 +111,7 @@
         <table id="cnt_OpenOrders" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr id="cnt_OpenOrders_Header_1"><th>Order ID</th><th>ID</th><th>Price</th><th>Fee</th><th>Order Type</th><th>Volume</th></tr> 
         </table>
+        -->
 
 
       </article>
