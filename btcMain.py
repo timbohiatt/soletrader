@@ -319,7 +319,8 @@ def getPendingTrades():
 	v_openOrders= []
 	currencyPair = [['AUD','XRP'],['AUD','BTC'],['AUD','LTC'],['AUD','ETH'],['ETH','AUD'],['BTC','AUD'],['XRP','AUD'],['BCH','AUD'],['LTC','AUD'],['ETC','AUD']]
 	for pair in currencyPair:
-		openOrders = v_BTC_Client.order_open(pair[0], pair[1], 200, 985787075)
+		openOrders = v_BTC_Client.order_open(pair[0], pair[1], 200, 0)
+		print openOrders
 		if openOrders['orders'] is not None:
 			for orderItem in openOrders['orders']:
 				order = {}
@@ -331,8 +332,11 @@ def getPendingTrades():
 				order['openVolume'] = str((Decimal(orderItem['openVolume']))/ Decimal(v_config['BTCDivisor']))
 				order['status'] = orderItem['status']
 				v_openOrders.append(order)
-				print order
+				print ""
+				print ""
 				print v_openOrders
+	
+	#print v_openOrders
 	
 	#print v_openOrders
 
